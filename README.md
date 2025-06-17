@@ -33,7 +33,7 @@ pip install -r requirements.txt
 ```
 
 # Example
-![](https://github.com/smthemex/ComfyUI_PartPacker/blob/main/example_workflows/example.png)
+![](https://github.com/smthemex/ComfyUI_PartPacker/blob/main/example_workflows/example_new.png)
 
 
 # Acknowledgements
