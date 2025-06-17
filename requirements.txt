@@ -1,0 +1,15 @@
+torch
+numpy
+trimesh
+#fpsample
+einops
+onnxruntime
+rembg
+kiui
+torchvision
+pymcubes
+tqdm
+opencv-python
+pymeshlab
+#gradio
+transformers
