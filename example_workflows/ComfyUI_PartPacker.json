@@ -1,0 +1,222 @@
+{
+  "id": "0ba45310-0a4e-4db4-869d-1b294e479e5b",
+  "revision": 0,
+  "last_node_id": 9,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PartPacker_Loader",
+      "pos": [
+        20743.24609375,
+        -1486.281982421875
+      ],
+      "size": [
+        270,
+        130
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "PartPacker_MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PartPacker_Loader"
+      },
+      "widgets_values": [
+        "flow.pt",
+        "vae.pt",
+        "F:\\test\\ComfyUI\\models\\diffusers\\facebook\\dinov2-giant",
+        true
+      ]
+    },
+    {
+      "id": 7,
+      "type": "LoadImage",
+      "pos": [
+        20739.16015625,
+        -1297.8453369140625
+      ],
+      "size": [
+        270,
+        314
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "rabbit.png",
+        "image"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "PartPacker_Sampler",
+      "pos": [
+        21137.203125,
+        -1410.3333740234375
+      ],
+      "size": [
+        286,
+        288
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "PartPacker_MODEL",
+          "link": 1
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model_path",
+          "type": "STRING",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PartPacker_Sampler"
+      },
+      "widgets_values": [
+        512,
+        512,
+        100000,
+        384,
+        788606917,
+        "randomize",
+        50,
+        7,
+        false
+      ]
+    },
+    {
+      "id": 9,
+      "type": "Preview3DAnimation",
+      "pos": [
+        21476.650390625,
+        -1478.181396484375
+      ],
+      "size": [
+        300,
+        550
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "camera_info",
+          "shape": 7,
+          "type": "LOAD3D_CAMERA",
+          "link": null
+        },
+        {
+          "name": "model_file",
+          "type": "STRING",
+          "widget": {
+            "name": "model_file"
+          },
+          "link": 5
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Preview3DAnimation",
+        "Last Time Model File": "F:/ComfyUI311/ComfyUI/output/partpacker_20250617_180914.glb",
+        "Camera Info": {
+          "position": {
+            "x": -1.6016784775866804,
+            "y": 4.191211347281783,
+            "z": 14.285979669021703
+          },
+          "target": {
+            "x": 0,
+            "y": 2.5,
+            "z": 0
+          },
+          "zoom": 1,
+          "cameraType": "perspective"
+        }
+      },
+      "widgets_values": [
+        "F:/ComfyUI311/ComfyUI/output/partpacker_20250617_180914.glb",
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "PartPacker_MODEL"
+    ],
+    [
+      4,
+      7,
+      0,
+      2,
+      1,
+      "IMAGE"
+    ],
+    [
+      5,
+      2,
+      0,
+      9,
+      1,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.1,
+      "offset": [
+        -20483.023344158355,
+        1611.8175067860536
+      ]
+    },
+    "frontendVersion": "1.21.6"
+  },
+  "version": 0.4
+}
