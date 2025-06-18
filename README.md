@@ -3,7 +3,8 @@ This is the comfyui implementation of [PartPacker](https://github.com/NVlabs/Par
 
 
 # Notice
-* Coming soon ,优化下模型加载，很快上线。
+* if Vram <12G make cpuoffload true ，小于12G显存开启cpu卸载
+* If not connected to the mask, use the default library to obtain the mask，不连入mask则用默认库获取mask
 
   
 # 1. Installation
@@ -33,7 +34,7 @@ pip install -r requirements.txt
 ```
 
 # Example
-![](https://github.com/smthemex/ComfyUI_PartPacker/blob/main/example_workflows/example_new.png)
+![](https://github.com/smthemex/ComfyUI_PartPacker/blob/main/example_workflows/example.png)
 
 
 # Acknowledgements
