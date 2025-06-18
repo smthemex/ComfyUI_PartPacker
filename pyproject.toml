@@ -1,0 +1,15 @@
+[project]
+name = "ComfyUI_PartPacker"
+description = "This is the comfyui implementation of PartPacker: Efficient Part-level 3D Object Generation via Dual Volume Packing.Max varm12G"
+version = "1.0.0"
+license = {file = "LICENSE"}
+dependencies = ["torch", "numpy", "trimesh", "#fpsample", "einops", "onnxruntime", "rembg", "kiui", "torchvision", "pymcubes", "tqdm", "opencv-python", "pymeshlab", "#gradio", "transformers"]
+
+[project.urls]
+Repository = "https://github.com/smthemex/ComfyUI_PartPacker"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "smthemex"
+DisplayName = "ComfyUI"
+Icon = ""

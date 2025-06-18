@@ -1,0 +1,15 @@
+torch == 2.5.1+cu121
+numpy == 1.26.4
+trimesh == 4.6.9
+fpsample == 0.3.3
+einops == 0.8.0
+onnxruntime == 1.18.0
+rembg == 2.0.60
+kiui == 0.2.15
+torchvision == 0.20.1+cu121
+pymcubes == 0.1.6
+tqdm == 4.67.0
+opencv-python == 4.10.0.84
+pymeshlab == 2023.12.post2
+gradio == 5.25.2
+transformers == 4.46.2
