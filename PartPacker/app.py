@@ -49,8 +49,8 @@ def process_3d(model,bg_remover,input_image,TRIMESH_GLB_EXPORT,mask,output_dir, 
     output_glb_path=os.path.join(output_dir, f"partpacker_{datetime.now().strftime('%Y%m%d_%H%M%S')}.glb")
     
     # input image (assume processed to RGBA uint8)
-    img_cv2=cv2.cvtColor(input_image,cv2.COLOR_RGB2BGR)
-    cv2.imwrite("output_image.png", img_cv2)
+    # img_cv2=cv2.cvtColor(input_image,cv2.COLOR_RGB2BGR)
+    # cv2.imwrite("output_image.png", img_cv2)
     
     image = input_image.astype(np.float32) / 255.0
     if mask is  None:
