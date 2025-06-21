@@ -332,7 +332,7 @@ class Model(nn.Module):
         self,
         data: dict[str, torch.Tensor],
         mode: Literal["dense", "hierarchical"] = "hierarchical",
-        max_samples_per_iter: int = 512**2,
+        max_samples_per_iter: int =8192,# 512**2 #for low ram <10G
         resolution: int = 512,
         min_resolution: int = 64,  # for hierarchical
     ) -> dict[str, torch.Tensor]:
