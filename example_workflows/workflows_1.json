@@ -1,0 +1,226 @@
+{
+  "id": "ff609605-c052-43ad-8827-6ee4c91f38f8",
+  "revision": 0,
+  "last_node_id": 18,
+  "last_link_id": 8,
+  "nodes": [
+    {
+      "id": 11,
+      "type": "PartPacker_Loader",
+      "pos": [
+        19887.408203125,
+        -1083.4678955078125
+      ],
+      "size": [
+        310,
+        190.90908813476562
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "PartPacker_MODEL",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PartPacker_Loader"
+      },
+      "widgets_values": [
+        "flow.pt",
+        "vae.pt",
+        "F:\\test\\ComfyUI\\models\\diffusers\\facebook\\dinov2-giant",
+        true
+      ]
+    },
+    {
+      "id": 13,
+      "type": "LoadImage",
+      "pos": [
+        19915.1640625,
+        -810.6302490234375
+      ],
+      "size": [
+        270,
+        314
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "robot.png",
+        "image"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "PartPacker_Sampler",
+      "pos": [
+        20259.78515625,
+        -1054.906494140625
+      ],
+      "size": [
+        270,
+        242
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "PartPacker_MODEL",
+          "link": 2
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 7
+        },
+        {
+          "name": "mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "trimesh",
+          "type": "TRIMESH",
+          "links": null
+        },
+        {
+          "name": "mesh",
+          "type": "MESH",
+          "links": [
+            8
+          ]
+        },
+        {
+          "name": "model_path",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PartPacker_Sampler"
+      },
+      "widgets_values": [
+        100000,
+        384,
+        1239709466,
+        "randomize",
+        50,
+        7,
+        false
+      ]
+    },
+    {
+      "id": 10,
+      "type": "SaveGLB",
+      "pos": [
+        20601.87890625,
+        -1133.7625732421875
+      ],
+      "size": [
+        400,
+        550
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mesh",
+          "type": "MESH",
+          "link": 8
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Camera Info": {
+          "position": {
+            "x": 4.009540480376107,
+            "y": 4.398765423103314,
+            "z": 7.139577252402805
+          },
+          "target": {
+            "x": 0,
+            "y": 2.5,
+            "z": 0
+          },
+          "zoom": 1,
+          "cameraType": "perspective"
+        },
+        "Show Grid": false
+      },
+      "widgets_values": [
+        "mesh/ComfyUI",
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      2,
+      11,
+      0,
+      12,
+      0,
+      "PartPacker_MODEL"
+    ],
+    [
+      7,
+      13,
+      0,
+      12,
+      1,
+      "IMAGE"
+    ],
+    [
+      8,
+      12,
+      1,
+      10,
+      0,
+      "MESH"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8264462809917354,
+      "offset": [
+        -19429.337823759797,
+        1379.2718576151483
+      ]
+    },
+    "frontendVersion": "1.22.2"
+  },
+  "version": 0.4
+}
