@@ -3,7 +3,7 @@ This is the comfyui implementation of [PartPacker](https://github.com/NVlabs/Par
 
 
 # Notice
-* 新增comfyUI的标准mesh输出和适配KJ的节点的trimesh.Trimesh，方便材质赋予；
+* 新增comfyUI的标准mesh输出和适配KJ的节点的trimesh.Trimesh，方便材质赋予（注意comfyUI标准格式无法实现零件输出，只能合成为单体，最好还是用路径保存）；
 * if Vram <12G make cpuoffload true ，小于12G显存开启cpu卸载
 * If not connected to the mask, use the default library to obtain the mask，不连入mask则用默认库获取mask
 
