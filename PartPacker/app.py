@@ -100,7 +100,8 @@ def process_3d(model,bg_remover,input_image,TRIMESH_GLB_EXPORT,mask,output_dir, 
     mesh = trimesh.Scene(parts)
     # export the whole mesh
     mesh.export(output_glb_path)
+    new_mesh=mesh.to_mesh() #"trimesh.Trimesh"
 
-    return output_glb_path
+    return new_mesh,output_glb_path
 
 
