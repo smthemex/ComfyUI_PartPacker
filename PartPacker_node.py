@@ -9,7 +9,7 @@ from .PartPacker.flow.configs.schema import ModelConfig
 from .PartPacker.flow.model import Model
 from .PartPacker.app import process_3d
 from .node_utils import tensor2cv,gc_clear,add_mask,tensor2pil_upscale
-
+from comfy_extras.nodes_hunyuan3d import MESH
 
 import folder_paths
 
@@ -116,8 +116,8 @@ class PartPacker_Sampler:
                             }
             }
 
-    RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("model_path", )
+    RETURN_TYPES = ("TRIMESH","MESH","STRING",)
+    RETURN_NAMES = ("trimesh","mesh","model_path", )
     FUNCTION = "sampler_main"
     CATEGORY = "PartPacker"
 
@@ -128,11 +128,13 @@ class PartPacker_Sampler:
         else:
             mask=None
         input_image=tensor2cv(image,RGB2BGR=False)
-        model_path=process_3d(model.get("pipe"),model.get("bg_remover"),input_image,model.get("TRIMESH_GLB_EXPORT"), mask,folder_paths.get_output_directory(),num_steps=steps, cfg_scale=cfg_scale, grid_res=grid_res, seed=seed, simplify_mesh=simplify_mesh, target_num_faces=target_num_faces)
+        trimesh,model_path=process_3d(model.get("pipe"),model.get("bg_remover"),input_image,model.get("TRIMESH_GLB_EXPORT"), mask,folder_paths.get_output_directory(),num_steps=steps, cfg_scale=cfg_scale, grid_res=grid_res, seed=seed, simplify_mesh=simplify_mesh, target_num_faces=target_num_faces)
         gc_clear()
-        return (model_path,)
+       
+        return (trimesh,MESH(torch.tensor(trimesh.vertices, dtype=torch.float32).unsqueeze(0),torch.tensor(trimesh.faces, dtype=torch.long).unsqueeze(0)),model_path,)
 
 
+WEB_DIRECTORY = "./web"
 
 NODE_CLASS_MAPPINGS = {
     "PartPacker_Loader": PartPacker_Loader,
