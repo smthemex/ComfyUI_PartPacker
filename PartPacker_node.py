@@ -134,7 +134,7 @@ class PartPacker_Sampler:
         return (trimesh,MESH(torch.tensor(trimesh.vertices, dtype=torch.float32).unsqueeze(0),torch.tensor(trimesh.faces, dtype=torch.long).unsqueeze(0)),model_path,)
 
 
-WEB_DIRECTORY = "./web"
+# WEB_DIRECTORY = "./web"
 
 NODE_CLASS_MAPPINGS = {
     "PartPacker_Loader": PartPacker_Loader,
