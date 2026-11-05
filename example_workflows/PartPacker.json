@@ -1,0 +1,803 @@
+{
+  "id": "c8407a2f-2b3f-4eda-b73c-62d61ada90d2",
+  "revision": 0,
+  "last_node_id": 18,
+  "last_link_id": 28,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PartPackerConditioning",
+      "pos": [
+        1272.5900146643608,
+        5225.828398168528
+      ],
+      "size": [
+        239.1060546875,
+        46
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip_vision",
+          "type": "CLIP_VISION",
+          "link": 10
+        },
+        {
+          "name": "cond_image",
+          "type": "IMAGE",
+          "link": 27
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PartPackerConditioning"
+      },
+      "color": "#332922",
+      "bgcolor": "#593930"
+    },
+    {
+      "id": 2,
+      "type": "PartPackerEmptyLatent",
+      "pos": [
+        1254.9625948217777,
+        5399.417876343014
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PartPackerEmptyLatent"
+      },
+      "widgets_values": [
+        1
+      ],
+      "widgets_values_named": {
+        "batch_size": 1
+      },
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": [
+        508.3917189398323,
+        5092.431355182571
+      ],
+      "size": [
+        270,
+        102
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            2,
+            26
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "robot.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "robot.png",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 5,
+      "type": "RemoveBackground",
+      "pos": [
+        701.1909956563486,
+        5510.587246969852
+      ],
+      "size": [
+        147.169921875,
+        46
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "bg_removal_model",
+          "type": "BACKGROUND_REMOVAL",
+          "link": 4
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            25
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RemoveBackground"
+      }
+    },
+    {
+      "id": 6,
+      "type": "LoadBackgroundRemovalModel",
+      "pos": [
+        542.1333425442374,
+        5645.239001088913
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "bg_model",
+          "type": "BACKGROUND_REMOVAL",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadBackgroundRemovalModel"
+      },
+      "widgets_values": [
+        "birefnet.safetensors"
+      ],
+      "widgets_values_named": {
+        "bg_removal_name": "birefnet.safetensors"
+      }
+    },
+    {
+      "id": 7,
+      "type": "PartPackerLoader",
+      "pos": [
+        927.8953658148816,
+        5068.990268960062
+      ],
+      "size": [
+        321.5826171875,
+        58
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PartPackerLoader"
+      },
+      "widgets_values": [
+        "PartPacker_flow.pt"
+      ],
+      "widgets_values_named": {
+        "model": "PartPacker_flow.pt"
+      },
+      "color": "#332922",
+      "bgcolor": "#593930"
+    },
+    {
+      "id": 8,
+      "type": "KSampler",
+      "pos": [
+        1591.5219707305196,
+        5189.879550757039
+      ],
+      "size": [
+        270,
+        262
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 6
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 7
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 8
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        237025908535380,
+        "randomize",
+        20,
+        8,
+        "euler",
+        "simple",
+        1
+      ],
+      "widgets_values_named": {
+        "seed": 237025908535380,
+        "control_after_generate": "randomize",
+        "steps": 20,
+        "cfg": 8,
+        "sampler_name": "euler",
+        "scheduler": "simple",
+        "denoise": 1
+      }
+    },
+    {
+      "id": 9,
+      "type": "CLIPVisionLoader",
+      "pos": [
+        899.3043211444982,
+        5278.366858391846
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP_VISION",
+          "type": "CLIP_VISION",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPVisionLoader"
+      },
+      "widgets_values": [
+        "dinov2-giant.safetensors"
+      ],
+      "widgets_values_named": {
+        "clip_name": "dinov2-giant.safetensors"
+      }
+    },
+    {
+      "id": 11,
+      "type": "PartPackerVAELoader",
+      "pos": [
+        1597.1836204094125,
+        5503.503121887195
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "vae",
+          "type": "PARTPACKER_VAE",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PartPackerVAELoader"
+      },
+      "widgets_values": [
+        "vae.pt"
+      ],
+      "widgets_values_named": {
+        "vae": "vae.pt"
+      },
+      "color": "#332922",
+      "bgcolor": "#593930"
+    },
+    {
+      "id": 12,
+      "type": "PartPackerMeshDecode",
+      "pos": [
+        1910.2173854804148,
+        5279.567834790889
+      ],
+      "size": [
+        270,
+        150
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 13
+        },
+        {
+          "name": "vae",
+          "type": "PARTPACKER_VAE",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mesh",
+          "type": "MESH",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PartPackerMeshDecode"
+      },
+      "widgets_values": [
+        384,
+        2209784564,
+        "randomize",
+        "mcubes"
+      ],
+      "widgets_values_named": {
+        "grid_res": 384,
+        "seed": 2209784564,
+        "control_after_generate": "randomize",
+        "backend": "mcubes"
+      },
+      "color": "#332922",
+      "bgcolor": "#593930"
+    },
+    {
+      "id": 13,
+      "type": "DecimateMesh",
+      "pos": [
+        2263.5779909827784,
+        5143.9556329773095
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "mesh",
+          "type": "MESH",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mesh",
+          "type": "MESH",
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DecimateMesh"
+      },
+      "widgets_values": [
+        200000,
+        "midpoint"
+      ],
+      "widgets_values_named": {
+        "target_face_count": 200000,
+        "placement_mode": "midpoint"
+      }
+    },
+    {
+      "id": 14,
+      "type": "SaveGLB",
+      "pos": [
+        2210.898915473127,
+        5412.778147898643
+      ],
+      "size": [
+        400,
+        550
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mesh",
+          "type": "MESH,FILE_3D_GLB,FILE_3D_GLTF,FILE_3D_OBJ,FILE_3D_FBX,FILE_3D_STL,FILE_3D_USDZ,FILE_3D_PLY,FILE_3D_SPLAT,FILE_3D_SPZ,FILE_3D_KSPLAT,FILE_3D_SPLAT_ANY,FILE_3D_POINT_CLOUD_ANY,FILE_3D",
+          "link": 15
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Last Time Model File": "3d/ComfyUI_00014_.glb",
+        "Last Time Model Folder": "output",
+        "Camera Config": {
+          "cameraType": "perspective",
+          "fov": 35,
+          "hasCustomUp": false,
+          "state": {
+            "position": {
+              "x": 0.5042654308485217,
+              "y": 0.9228926907812537,
+              "z": 3.834145992811717
+            },
+            "target": {
+              "x": -0.028166979551315308,
+              "y": -0.00023382902145385745,
+              "z": -0.0049085915088653564
+            },
+            "zoom": 1,
+            "cameraType": "perspective",
+            "quaternion": {
+              "x": -0.11636735965338067,
+              "y": 0.06838017227287647,
+              "z": 0.00803096862391413,
+              "w": 0.9908169826916544
+            },
+            "fov": 35,
+            "aspect": 0.9494949494949495,
+            "near": 0.01,
+            "far": 10000,
+            "frustum": {
+              "left": -5,
+              "right": 5,
+              "top": 5,
+              "bottom": -5
+            }
+          }
+        },
+        "Light Config": {
+          "intensity": 3,
+          "hdri": {
+            "enabled": false,
+            "hdriPath": "",
+            "showAsBackground": false,
+            "intensity": 1
+          }
+        },
+        "Scene Config": {
+          "showGrid": true,
+          "backgroundColor": "#282828",
+          "backgroundImage": "",
+          "backgroundRenderMode": "tiled",
+          "models": [
+            {
+              "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "quaternion": {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+                "w": 1
+              },
+              "scale": {
+                "x": 1,
+                "y": 1,
+                "z": 1
+              }
+            }
+          ]
+        }
+      },
+      "widgets_values": [
+        "3d/ComfyUI",
+        ""
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "3d/ComfyUI",
+        "image": ""
+      }
+    },
+    {
+      "id": 15,
+      "type": "PreviewImage",
+      "pos": [
+        1364.7793361855058,
+        5647.544103285545
+      ],
+      "size": [
+        291.08551570717145,
+        251.2980940267825
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 28
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 18,
+      "type": "PartPackerImagePreprocess",
+      "pos": [
+        990.6336286443749,
+        5537.771686872907
+      ],
+      "size": [
+        235.968359375,
+        46
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 26
+        },
+        {
+          "name": "mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": 25
+        }
+      ],
+      "outputs": [
+        {
+          "name": "cond_image",
+          "type": "IMAGE",
+          "links": [
+            27,
+            28
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PartPackerImagePreprocess"
+      },
+      "color": "#332922",
+      "bgcolor": "#593930"
+    }
+  ],
+  "links": [
+    [
+      2,
+      4,
+      0,
+      5,
+      1,
+      "IMAGE"
+    ],
+    [
+      4,
+      6,
+      0,
+      5,
+      0,
+      "BACKGROUND_REMOVAL"
+    ],
+    [
+      6,
+      7,
+      0,
+      8,
+      0,
+      "MODEL"
+    ],
+    [
+      7,
+      1,
+      0,
+      8,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      8,
+      1,
+      1,
+      8,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      9,
+      2,
+      0,
+      8,
+      3,
+      "LATENT"
+    ],
+    [
+      10,
+      9,
+      0,
+      1,
+      0,
+      "CLIP_VISION"
+    ],
+    [
+      12,
+      11,
+      0,
+      12,
+      1,
+      "PARTPACKER_VAE"
+    ],
+    [
+      13,
+      8,
+      0,
+      12,
+      0,
+      "LATENT"
+    ],
+    [
+      14,
+      12,
+      0,
+      13,
+      0,
+      "MESH"
+    ],
+    [
+      15,
+      13,
+      0,
+      14,
+      0,
+      "MESH"
+    ],
+    [
+      25,
+      5,
+      0,
+      18,
+      1,
+      "MASK"
+    ],
+    [
+      26,
+      4,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      27,
+      18,
+      0,
+      1,
+      1,
+      "IMAGE"
+    ],
+    [
+      28,
+      18,
+      0,
+      15,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "PartPacker",
+      "bounding": [
+        498.3917189398323,
+        4998.990268960062,
+        2122.507196533295,
+        973.7878789385804
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7142261739130465,
+      "offset": [
+        -199.10185752700323,
+        -4812.03192275664
+      ]
+    },
+    "frontendVersion": "1.58.5"
+  },
+  "version": 0.4
+}

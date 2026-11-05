@@ -3,14 +3,11 @@ This is the comfyui implementation of [PartPacker](https://github.com/NVlabs/Par
 
 
 # Notice
-* 新增comfyUI的标准mesh输出和适配KJ的节点的trimesh.Trimesh，方便材质赋予（注意comfyUI标准格式无法实现零件输出，只能合成为单体，最好还是用路径保存）；
-* if Vram <12G make cpuoffload true ，小于12G显存开启cpu卸载
-* If not connected to the mask, use the default library to obtain the mask，不连入mask则用默认库获取mask
+* 使用comfyUI的核心代码封装，降低显存占用/user-friendly code for comfyUI, reduce GPU memory usage.
 
-  
 # 1. Installation
 
-In the ./ComfyUI/custom_node directory, run the following:   
+In the ./ComfyUI/custom_nodes directory, run the following:   
 ```
 git clone https://github.com/smthemex/ComfyUI_PartPacker.git
 ```
@@ -23,19 +20,19 @@ pip install -r requirements.txt
 ```
 
 # 3.Model
-* 3.1.1 download  checkpoints  from [nvidia/PartPacker](https://huggingface.co/nvidia/PartPacker/tree/main) 从抱脸下载2个模型;  
-* 3.1.2 dino  [facebook/dinov2-giant](https://huggingface.co/facebook/dinov2-giant/tree/main)  or [facebook/dinov2-with-registers-large](https://huggingface.co/facebook/dinov2-with-registers-large/tree/main)
+* 3.1 download  dit and vae   from [nvidia/PartPacker](https://huggingface.co/nvidia/PartPacker/tree/main) 从抱脸下载2个模型;  
+* 3.1 dino  [facebook/dinov2-giant](https://huggingface.co/facebook/dinov2-giant/tree/main)
 ```
---  ComfyUI/models/PartPacker/
+--  ComfyUI/models/diffusion_models/
     |-- flow.pth
---  ComfyUI/models/vae/
+--  vae/
     |-- vae.pt
--- anypath/facebook/dinov2-giant/  # fix it sometimes 迟点改成单体的
-   ... 
+--  clip_vision/
+    |-- dinov2-giant.safetensors
 ```
 
 # Example
-![](https://github.com/smthemex/ComfyUI_PartPacker/blob/main/example_workflows/example1.png)
+![](https://github.com/smthemex/ComfyUI_PartPacker/blob/main/example_workflows/example.png)
 
 
 # Acknowledgements
